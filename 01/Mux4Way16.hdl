@@ -17,4 +17,53 @@ CHIP Mux4Way16 {
 
     PARTS:
     // Put your code here:
+	Mux16(a[0]=a[0], b[0]=b[0], sel=sel[0], out[0]=w0);
+	Mux16(a[1]=a[1], b[1]=b[1], sel=sel[0], out[1]=w1);
+	Mux16(a[2]=a[2], b[2]=b[2], sel=sel[0], out[2]=w2);
+	Mux16(a[3]=a[3], b[3]=b[3], sel=sel[0], out[3]=w3);
+	Mux16(a[4]=a[4], b[4]=b[4], sel=sel[0], out[4]=w4);
+	Mux16(a[5]=a[5], b[5]=b[5], sel=sel[0], out[5]=w5);
+	Mux16(a[6]=a[6], b[6]=b[6], sel=sel[0], out[6]=w6);
+	Mux16(a[7]=a[7], b[7]=b[7], sel=sel[0], out[7]=w7);
+	Mux16(a[8]=a[8], b[8]=b[8], sel=sel[0], out[8]=w8);
+	Mux16(a[9]=a[9], b[9]=b[9], sel=sel[0], out[9]=w9);
+	Mux16(a[10]=a[10], b[10]=b[10], sel=sel[0], out[10]=w10);
+	Mux16(a[11]=a[11], b[11]=b[11], sel=sel[0], out[11]=w11);
+	Mux16(a[12]=a[12], b[12]=b[12], sel=sel[0], out[12]=w12);
+	Mux16(a[13]=a[13], b[13]=b[13], sel=sel[0], out[13]=w13);
+	Mux16(a[14]=a[14], b[14]=b[14], sel=sel[0], out[14]=w14);
+	Mux16(a[15]=a[15], b[15]=b[15], sel=sel[0], out[15]=w15);
+	Mux16(a[0]=c[0], b[0]=d[0], sel=sel[0], out[0]=w16);
+	Mux16(a[1]=c[1], b[1]=d[1], sel=sel[0], out[1]=w17);
+	Mux16(a[2]=c[2], b[2]=d[2], sel=sel[0], out[2]=w18);
+	Mux16(a[3]=c[3], b[3]=d[3], sel=sel[0], out[3]=w19);
+	Mux16(a[4]=c[4], b[4]=d[4], sel=sel[0], out[4]=w20);
+	Mux16(a[5]=c[5], b[5]=d[5], sel=sel[0], out[5]=w21);
+	Mux16(a[6]=c[6], b[6]=d[6], sel=sel[0], out[6]=w22);
+	Mux16(a[7]=c[7], b[7]=d[7], sel=sel[0], out[7]=w23);
+	Mux16(a[8]=c[8], b[8]=d[8], sel=sel[0], out[8]=w24);
+	Mux16(a[9]=c[9], b[9]=d[9], sel=sel[0], out[9]=w25);
+	Mux16(a[10]=c[10], b[10]=d[10], sel=sel[0], out[10]=w26);
+	Mux16(a[11]=c[11], b[11]=d[11], sel=sel[0], out[11]=w27);
+	Mux16(a[12]=c[12], b[12]=d[12], sel=sel[0], out[12]=w28);
+	Mux16(a[13]=c[13], b[13]=d[13], sel=sel[0], out[13]=w29);
+	Mux16(a[14]=c[14], b[14]=d[14], sel=sel[0], out[14]=w30);
+	Mux16(a[15]=c[15], b[15]=d[15], sel=sel[0], out[15]=w31);
+	Mux16(a[0]=w0, b[0]=w16, sel=sel[1], out[0]=out[0]);
+	Mux16(a[1]=w1, b[1]=w17, sel=sel[1], out[1]=out[1]);
+	Mux16(a[2]=w2, b[2]=w18, sel=sel[1], out[2]=out[2]);
+	Mux16(a[3]=w3, b[3]=w19, sel=sel[1], out[3]=out[3]);
+	Mux16(a[4]=w4, b[4]=w20, sel=sel[1], out[4]=out[4]);
+	Mux16(a[5]=w5, b[5]=w21, sel=sel[1], out[5]=out[5]);
+	Mux16(a[6]=w6, b[6]=w22, sel=sel[1], out[6]=out[6]);
+	Mux16(a[7]=w7, b[7]=w23, sel=sel[1], out[7]=out[7]);
+	Mux16(a[8]=w8, b[8]=w24, sel=sel[1], out[8]=out[8]);
+	Mux16(a[9]=w9, b[9]=w25, sel=sel[1], out[9]=out[9]);
+	Mux16(a[10]=w10, b[10]=w26, sel=sel[1], out[10]=out[10]);
+	Mux16(a[11]=w11, b[11]=w27, sel=sel[1], out[11]=out[11]);
+	Mux16(a[12]=w12, b[12]=w28, sel=sel[1], out[12]=out[12]);
+	Mux16(a[13]=w13, b[13]=w29, sel=sel[1], out[13]=out[13]);
+	Mux16(a[14]=w14, b[14]=w30, sel=sel[1], out[14]=out[14]);
+	Mux16(a[15]=w15, b[15]=w31, sel=sel[1], out[15]=out[15]);
+
 }
