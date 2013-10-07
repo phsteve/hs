@@ -1,4 +1,4 @@
-// This file is part of www.nand2tetris.org
+    // This file is part of www.nand2tetris.org
 // and the book "The Elements of Computing Systems"
 // by Nisan and Schocken, MIT Press.
 // File name: projects/02/ALU.hdl
@@ -45,5 +45,24 @@ CHIP ALU {
         ng; // 1 if (out<0),  0 otherwise
 
     PARTS:
-   // Put you code here:
+    // Put you code here:
+    Mux16(a=x, b=false, sel=zx, out=w1);
+    Not16(in=w1, out=w2);
+    Mux16(a=w1, b=w2, sel=nx, out=w3);
+
+    Mux16(a=y, b=false, sel=zy, out=w4);
+    Not16(in=w4, out=w5);
+    Mux16(a=w4, b=w5, sel=ny, out=w6);
+
+    And16(a=w3, b=w6, out=w7);
+    Add16(a=w3, b=w6, out=w8);
+    Mux16(a=w7, b=w8, sel=f, out=w9);
+    Not16(in=w9, out=w10);
+    Mux16(a=w9, b=w10, sel=no, out=out, out[0..7]=w11, out[8..15]=w12, out[15]=ng);
+
+    Or8Way(in=w11, out=w13);
+    Or8Way(in=w12, out=w14);
+    Or(a=w13, b=w14, out=w15);
+    Not(in=w15, out=zr);
+
 }
