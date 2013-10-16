@@ -5,8 +5,28 @@ M=0
 M=0
 
 
-//check keyboard input (either 1/(KEYON) or 0/(KEYOFF))
+//Check if screen is full, if it is, terminate
+//(LOOP)
+//@8192
+//D=A
+//@0
+//D=D-M
+//@END
+//D;JEQ
 (LOOP)
+@0
+D=M
+@8192
+D=D-A
+@RESETM
+D;JEQ
+@CONTINUE
+0;JMP
+(RESETM)
+@0
+M=0
+
+(CONTINUE)
 @KBD
 D=M //look at KBD
 @KEYOFF //if the key is off, jump to KEYOFF
@@ -28,52 +48,53 @@ D;JEQ
 
 	(ONRESETM)
 		@0
-		M=0
+		M=0 //reset M[0] = 0
 		@ONCONTINUE
-		0;JMP
+		0;JMP //continue
 
 	(ONCONTINUE)
 		@SCREEN
 		D=A
 		@0
-		D=D+M
+		D=D+M //go to next screen memory address
 		A=D
-		M=-1
+		M=-1 //color it black
 		@0
-		M=M+1
+		M=M+1 //increment M[0]
 	@LOOP
 	0;JMP
 
 (KEYOFF)
 	@PREVIOUS
-	D=M
-	M=0
+	D=M //look at previous
+	M=0 //set it to 0
+	//something is wrong right here
 	@OFFCONTINUE
-	D;JEQ
-	@OFFRESETM
-	D;JGT
+	D;JEQ //if key used to be off (previous=0), jump to offcontinue
+	@OFFRESETM 
+	D;JGT //if key used to be on (prev = 1), reset M
 
 	(OFFRESETM)
 		@0
-		M=0
+		M=0 //reset M
 		@OFFCONTINUE
-		0;JMP
+		0;JMP 
 
 	(OFFCONTINUE)
 		@SCREEN
-		D=A
+		D=A //store SCREEN in D
 		@0
-		D=D+M
-		A=D
-		M=0
+		D=D+M // D= SCREEN + M[0]
+		A=D 
+		M=0 //M[SCREEN + M[0]] = 0
 		@0
-		M=M+1
+		M=M+1 //increment M[0]
 	@LOOP
 	0;JMP
 
-(END)
-@END
-0;JMP
+//(END)
+//@END
+//0;JMP
 
 
 
