@@ -3,8 +3,8 @@ import sys
 class Parser(object):
     def __init__(self, lines):
         #opens input stream and gets ready to parse it
-        #self.filename = sys.argv[1]
-        #f = open(self.filename)
+        # self.filename = sys.argv[1]
+        # f = open(self.filename)
         self.lines = lines
         #f.close()
         self.command = ''
@@ -18,20 +18,25 @@ class Parser(object):
     def commandType(self):
         if self.command[:2] == '//':
             return 'comment'
+        if '//' in self.command:
+            self.command = self.command.split('//')[0].strip()
+        self.command = self.command.strip()
+        if self.command == '':
+            return 'empty line'
         if self.command[0] == '@':
             if self.command[1:].isdigit(): #OR issymbol(), implement this
                 return 'A_COMMAND'
-        elif ';' in self.command:
-            return 'C_COMMAND' #dest=comp;jump
         elif self.command[0] == '(' and self.command[-1] == ')':
             return 'L_COMMAND' #Loop
+        else:
+            return 'C_COMMAND' #dest=comp;jump
 
     def symbol(self):
         # call if commandType is A or L
         if self.commandType() == 'A_COMMAND':
-            return command[1:] #Xxx from @Xxx
+            return self.command[1:] #Xxx from @Xxx
         elif self.commandType() == 'L_COMMAND':
-            return command[1:-1] #Xxx from (Xxx)
+            return self.command[1:-1] #Xxx from (Xxx)
 
     def dest(self):
         if self.commandType() == 'C_COMMAND':
@@ -47,7 +52,10 @@ class Parser(object):
     #Deal with dest=comp and comp;jump cases
 
 class Code(object):
-    def dest(mnemonic):
+    def __init__(self, mnemonic):
+        self.mnemonic = mnemonic
+
+    def dest(self, mnemonic):
         translate = {'null': '000',
                      'M':    '001',
                      'D':    '010',
@@ -58,7 +66,7 @@ class Code(object):
                      'AMD':  '111'}
         return translate[mnemonic]
 
-    def comp(mnemonic):
+    def comp(self, mnemonic):
         translate = {#a=0
                      '0':  '0101010',
                      '1':  '0111111',
@@ -90,7 +98,7 @@ class Code(object):
                      'D|M':'1010101'}
         return translate[mnemonic]
 
-    def jump(mnemonic):
+    def jump(self, mnemonic):
         translate = {'null': '000',
                      'JGT' : '001',
                      'JEQ' : '010',
@@ -103,32 +111,38 @@ class Code(object):
 
 def main():
     filename = sys.argv[1]
-    asm_file = open(self.filename)
+    asm_file = open(filename)
     lines = asm_file.readlines()
     parser = Parser(lines)
-    f = open(parser.filename.split('.')[0] + '.hack', 'w')
-    f.write('wefjiowefoijefw IS WORKING')
-    code = Code()
+    f = open(filename.split('.')[0] + '.hack', 'w')
+    #f.write('wefjiowefoijefw IS WORKING')
+    #code = Code()
     while parser.hasMoreCommands():
-        print "parsing"
+        # print "parsing"
         parser.advance()
         print parser.commandType()
         if parser.commandType() == 'A_COMMAND' or parser.commandType() == 'L_COMMAND':
-            print "found a command type " + parser.commandType()
-            f.write(str(bin(parser.symbol()))[2:])
+            # print "found a command type " + parser.commandType()
+            print "writing + "
+            f.write(str(bin(int(parser.symbol()))[2:]))
         elif parser.commandType == 'C_COMMAND':
+            code = Code(parser.command)
             f.write(code.dest(parser.dest()) + code.comp(parser.comp()) + code.jump(parser.jump()))
     f.close()
 
 # if __name__ == "__main__":
 #     main()
 
-parser = Parser(['@256', 'D=A'])
+parser = Parser(['@256', 'D'])
 # print parser.lines
 # print parser.command
 
 # print parser.hasMoreCommands()
 parser.advance()
+
+print parser.command
+code1 = Code(parser.command)
+print code1.comp(parser.command)
 print parser.commandType()
 parser.advance()
 print parser.command
