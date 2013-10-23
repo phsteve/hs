@@ -1,21 +1,23 @@
 import sys
 
 class Parser(object):
-    def __init__(self):
+    def __init__(self, lines):
         #opens input stream and gets ready to parse it
-        self.filename = sys.argv[1]
-        f = open(self.filename)
-        self.input = f.readlines()
-        f.close()
+        #self.filename = sys.argv[1]
+        #f = open(self.filename)
+        self.lines = lines
+        #f.close()
         self.command = ''
 
     def hasMoreCommands(self):
-        return len(self.input) > 0
+        return len(self.lines) > 0
 
     def advance(self):
-        self.command = self.input.pop(0)
+        self.command = self.lines.pop(0)
 
     def commandType(self):
+        if self.command[:2] == '//':
+            return 'comment'
         if self.command[0] == '@':
             if self.command[1:].isdigit(): #OR issymbol(), implement this
                 return 'A_COMMAND'
@@ -42,6 +44,7 @@ class Parser(object):
     def jump(self):
         if self.commandType == 'C_COMMAND':
             return self.command.split('=')[1].split(';')[1]
+    #Deal with dest=comp and comp;jump cases
 
 class Code(object):
     def dest(mnemonic):
@@ -99,23 +102,37 @@ class Code(object):
         return translate[mnemonic]
 
 def main():
-    parser = Parser()
+    filename = sys.argv[1]
+    asm_file = open(self.filename)
+    lines = asm_file.readlines()
+    parser = Parser(lines)
     f = open(parser.filename.split('.')[0] + '.hack', 'w')
     f.write('wefjiowefoijefw IS WORKING')
     code = Code()
     while parser.hasMoreCommands():
         print "parsing"
         parser.advance()
-        if parser.commandType == 'A_COMMAND' or parser.commandType == 'L_COMMAND':
-            print "found a command type " + parser.commandType
+        print parser.commandType()
+        if parser.commandType() == 'A_COMMAND' or parser.commandType() == 'L_COMMAND':
+            print "found a command type " + parser.commandType()
             f.write(str(bin(parser.symbol()))[2:])
         elif parser.commandType == 'C_COMMAND':
             f.write(code.dest(parser.dest()) + code.comp(parser.comp()) + code.jump(parser.jump()))
     f.close()
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
 
+parser = Parser(['@256', 'D=A'])
+# print parser.lines
+# print parser.command
+
+# print parser.hasMoreCommands()
+parser.advance()
+print parser.commandType()
+parser.advance()
+print parser.command
+print parser.commandType()
 
 
 
