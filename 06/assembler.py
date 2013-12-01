@@ -57,7 +57,7 @@ def decompose(c):
     return parts
 
 def dest(mnemonic):
-    translate = {'': '000',
+    translate = {'':     '000',
                  'M':    '001',
                  'D':    '010',
                  'MD':   '011',
@@ -102,7 +102,7 @@ def comp(mnemonic):
 
 def jump(mnemonic):
     translate = {
-                 '': '000',
+                 '':     '000',
                  'JGT' : '001',
                  'JEQ' : '010',
                  'JGE' : '011',
@@ -112,17 +112,16 @@ def jump(mnemonic):
                  'JMP' : '111'}
     return translate[mnemonic]
 
-
-
 def main():
     filename = sys.argv[1]
     asm_file = open(filename)
     lines = asm_file.readlines()
     parser = Parser(lines)
     f = open(filename.split('.')[0] + '.hack', 'w')
+    line_no = 0
     while parser.hasMoreCommands():
         parser.advance()
-        print parser.commandType()
+        #print parser.commandType()
         if parser.commandType() == 'A_COMMAND' or parser.commandType() == 'L_COMMAND':
             f.write('{0:0>16}'.format(str(bin(int(parser.symbol()))[2:])) + '\n')
         elif parser.commandType() == 'C_COMMAND':
