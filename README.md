@@ -1,0 +1,4 @@
+Nand2Tetris
+----------------
+
+My work on the first 6 chapters of the [nand2tetris](http://nand2tetris.org) book. I start by implementing basic logic gates such as OR, AND, NOR, and XOR from NAND gates. Then, I use the gates I've built to implement more complicated gates such as multiplexors, demultiplexors, adders and a functioning Arithmetic Logic Unit. Using a program counter, I build bits, bytes, and successively larger RAM chips. I combine all of these to build a functioning computer with keyboard input, screen output, program memory and RAM. Right now I'm working on finishing the computer implementation and the assembler I wrote in Python.
